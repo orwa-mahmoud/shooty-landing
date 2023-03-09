@@ -4,7 +4,6 @@ function Hero() {
   return (
     <>
         <section id="hero" className="hero d-flex align-items-center">
-
             <div className="container">
                 <div className="row">
                     <div className="col-lg-5 d-flex flex-column justify-content-center">
@@ -12,7 +11,9 @@ function Hero() {
                         <h1 data-aos="fade-up">Enabling organizations<br/> to grow</h1>
                         <div data-aos="fade-up">
                             <div className="text-center text-lg-start">
-                                <a href="#signUpModal" data-bs-toggle="modal" className="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                                <a href={"#signUpModal"} data-bs-toggle="modal"
+                                   className="btn-get-started scrollto d-inline-flex align-items-center
+                                   justify-content-center align-self-center">
                                     <span>Signup for free</span>
                                     <i className="bi bi-arrow-right"></i>
                                 </a>
@@ -25,7 +26,6 @@ function Hero() {
                     </div>
                 </div>
             </div>
-
         </section>
     </>
   )

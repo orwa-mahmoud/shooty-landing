@@ -1,4 +1,4 @@
-import {React,useState} from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 function Features() {
 
@@ -18,11 +18,10 @@ function Features() {
   return (
     <>
         <section id="features" className="features">
-
             <div className="container">
                 <div className="row text-center">
                     <div className="col-12">
-                        <h1 data-aos="fade-up">Integrations and API endpoints for<br/> compatibility. And opportunity.</h1>
+                        <h1 data-aos="fade-up">Integrations and API endpoints for compatibility. And opportunity.</h1>
                         <p data-aos="fade-up">Workflow software for content creation at scale</p>
                     </div>
                 </div>
@@ -30,7 +29,9 @@ function Features() {
                     <div className="col-12">
                         <ul className="nav nav-pills mb-3">
                         {values.map((val,index) => (
-                            <li className={"nav-link" + (activeId === val.id ? " active" : "")} data-bs-toggle="pill" href="#tab1" onClick={(e) => changeTab(e,val.id)} key={index}>
+                            <li className={"nav-link" + (activeId === val.id ? " active" : "")}
+                                data-bs-toggle="pill" href="#tab1"
+                                onClick={(e) => changeTab(e,val.id)} key={index}>
                                 {val.text}
                             </li>
                             ))}
@@ -108,7 +109,6 @@ function Features() {
                     </div>
                 </div>
             </div>
-
         </section>
     </>
   )

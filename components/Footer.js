@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{ useState,useEffect } from 'react'
 import Image from 'next/image'
 function Footer() {
 
@@ -15,11 +15,9 @@ function Footer() {
   return (
     <>
         <footer id="footer" className="footer">
-
             <div className="footer-top">
                 <div className="container">
                     <div className="row gy-4">
-
                         <div className="col-lg-2 col-6 footer-links">
                             <h4><strike>Community</strike></h4>
                             <ul>
@@ -28,7 +26,6 @@ function Footer() {
                                 <li><a href="#"><strike>Forums</strike></a></li>
                             </ul>
                         </div>
-
                         <div className="col-lg-2 col-6 footer-links">
                             <h4><strike>Services</strike></h4>
                             <ul>
@@ -37,7 +34,6 @@ function Footer() {
                                 <li><a href="#"><strike>Forums</strike></a></li>
                             </ul>
                         </div>
-
                         <div className="col-lg-2 col-6 footer-links">
                             <h4><strike>About Us</strike></h4>
                             <ul>
@@ -49,7 +45,6 @@ function Footer() {
                                 <li><a href="#"><strike>Forums</strike></a></li>
                             </ul>
                         </div>
-
                         <div className="col-lg-6 col-md-12 footer-info">
                             <a href="index.html" className="logo d-flex align-items-center">
                                <Image src="/assets/img/logo.png" alt="Shooty"  width={100} height={50} className="img-fluid custom-img"/>
@@ -73,7 +68,6 @@ function Footer() {
                     </div>
                 </div>
             </div>
-
             <div className="container">
                 <div className="row text-center">
                     <div className="col-md-6 text-md-start copyright">

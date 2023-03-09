@@ -4,7 +4,6 @@ function Testimonials() {
   return (
     <>
         <section id="testimonials" className="testimonials">
-
             <div className="container">
                 <div className="row text-center">
                     <div className="col-12">
@@ -28,7 +27,7 @@ function Testimonials() {
                                         </div>
                                         <div className="col-8">
                                             <h3>Max</h3>
-                                            <h4>Photographer,</h4>
+                                            <h6>Photographer,</h6>
                                             <h5>Gillette</h5>
                                         </div>
                                     </div>
@@ -49,7 +48,7 @@ function Testimonials() {
                                         </div>
                                         <div className="col-8">
                                             <h3>Max</h3>
-                                            <h4>Photographer,</h4>
+                                            <h6>Photographer,</h6>
                                             <h5>Gillette</h5>
                                         </div>
                                     </div>
@@ -70,7 +69,7 @@ function Testimonials() {
                                         </div>
                                         <div className="col-8">
                                             <h3>Max</h3>
-                                            <h4>Photographer,</h4>
+                                            <h6>Photographer,</h6>
                                             <h5>Gillette</h5>
                                         </div>
                                     </div>
@@ -91,7 +90,7 @@ function Testimonials() {
                                         </div>
                                         <div className="col-8">
                                             <h3>Max</h3>
-                                            <h4>Photographer,</h4>
+                                            <h6>Photographer,</h6>
                                             <h5>Gillette</h5>
                                         </div>
                                     </div>
@@ -112,7 +111,7 @@ function Testimonials() {
                                         </div>
                                         <div className="col-8">
                                             <h3>Max</h3>
-                                            <h4>Photographer,</h4>
+                                            <h6>Photographer,</h6>
                                             <h5>Gillette</h5>
                                         </div>
                                     </div>
@@ -124,7 +123,6 @@ function Testimonials() {
                     <button type="button" className="slider-nav slider-nav-next" aria-label="Go left"></button>
                 </div>
             </div>
-
         </section>
     </>
   )

@@ -4,11 +4,10 @@ function Demo() {
   return (
     <>
         <section id="demo" className="demo">
-
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <h1 data-aos="fade-up">Creative studio with<br/> art & technologies.</h1>
+                        <h1 data-aos="fade-up">Creative studio with art & technologies.</h1>
                         <h2 data-aos="fade-up">You get a machine with resources solely allocated to your business.</h2>
                     </div>
                 </div>
@@ -35,7 +34,6 @@ function Demo() {
                     </div>
                 </div>
             </div>
-
         </section>
     </>
   )
