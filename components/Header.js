@@ -9,6 +9,7 @@ function Header() {
     const dispatch =useDispatch()
     
     const [headerScrolled, setheaderScrolled] = useState(false);
+    const [navbarMobile, setNavbarMobile] = useState(false);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -28,6 +29,11 @@ function Header() {
         dispatch(allActions.showHideModalActions.showSignupModal())
     }
 
+    const  handleNavbarMobile = () => {
+        e.preventDefault(); 
+        setNavbarMobile(!navbarMobile)
+    }
+
   return (
     <>
     <header id="header" className={ "header fixed-top "+(headerScrolled ? "header-scrolled":'')} >
@@ -35,7 +41,7 @@ function Header() {
             <a href={"/"} className="logo d-flex align-items-center">
                 <Image src="/assets/img/logo.png" alt="Shooty" width={100} height={50}/>
             </a>
-            <nav id="navbar" className="navbar">
+            <nav id="navbar" className={"navbar "+(navbarMobile ? 'navbar-mobile"': '')}>
                 <ul>
                     <li><a className="nav-link scrollto" href="">Solutions</a></li>
                     <li><a className="nav-link scrollto" href="">Platform</a></li>
@@ -54,7 +60,7 @@ function Header() {
                         </a>
                     </li>
                 </ul>
-                <i className="bi bi-list mobile-nav-toggle"></i>
+                <i className="bi bi-list mobile-nav-toggle" onClick={() => handleNavbarMobile}></i>
             </nav>
         </div>
     </header>
