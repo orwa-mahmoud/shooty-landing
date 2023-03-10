@@ -30,7 +30,7 @@ function ForgotPassword() {
                         </div>
                         <Image src="/assets/img/sd-camera.png"  alt="Shooty" fill className="img-fluid custom-img"/>
                     </div>
-                    <div className="col-md-8 pr-0">
+                    <div className="col-md-8 pr-0 camera-ban-removed">
                         <div className="text-end">
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={(e) => closeModal(e)}>
                             </button>

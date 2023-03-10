@@ -2693,9 +2693,12 @@ section {
   font-size: 12px
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 991px) {
   .camera-ban{
     display: none;
+  }
+  .camera-ban-removed{
+    width: 100%;
   }
 }
 

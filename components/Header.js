@@ -1,4 +1,4 @@
-import { useEffect,useState } from 'react'
+import { useEffect,useState,useRef } from 'react'
 import Image from 'next/image'
 import { useSelector, useDispatch } from 'react-redux';
 import allActions from '../store/actions';
@@ -10,7 +10,8 @@ function Header() {
     
     const [headerScrolled, setheaderScrolled] = useState(false);
     const [navbarMobile, setNavbarMobile] = useState(false);
-
+    const mobileNavToggleRef = useRef(null);
+    const navbarMobileRef    = useRef(null);
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
     });
@@ -29,9 +30,17 @@ function Header() {
         dispatch(allActions.showHideModalActions.showSignupModal())
     }
 
-    const  handleNavbarMobile = () => {
-        e.preventDefault(); 
-        setNavbarMobile(!navbarMobile)
+    const  handleNavbarMobile = (e) => {
+        if (e.currentTarget.classList.contains('bi-list')) {
+            setNavbarMobile(true)
+            e.target.classList.add('bi-x')
+            e.target.classList.remove('bi-list')
+          }else if (e.currentTarget.classList.contains('bi-x')) {
+            setNavbarMobile(false)
+            e.target.classList.remove('bi-x')
+            e.target.classList.add('bi-list')
+            navbarMobileRef.current.classList.remove('navbar-mobile')
+          }
     }
 
   return (
@@ -41,7 +50,7 @@ function Header() {
             <a href={"/"} className="logo d-flex align-items-center">
                 <Image src="/assets/img/logo.png" alt="Shooty" width={100} height={50}/>
             </a>
-            <nav id="navbar" className={"navbar "+(navbarMobile ? 'navbar-mobile"': '')}>
+            <nav ref={navbarMobileRef} id="navbar" className={"navbar "+(navbarMobile ? 'navbar-mobile': '')}>
                 <ul>
                     <li><a className="nav-link scrollto" href="">Solutions</a></li>
                     <li><a className="nav-link scrollto" href="">Platform</a></li>
@@ -60,7 +69,7 @@ function Header() {
                         </a>
                     </li>
                 </ul>
-                <i className="bi bi-list mobile-nav-toggle" onClick={() => handleNavbarMobile}></i>
+                <i ref={mobileNavToggleRef} className="bi  mobile-nav-toggle bi-list" onClick={(e) => handleNavbarMobile(e)}></i>
             </nav>
         </div>
     </header>

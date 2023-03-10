@@ -1,5 +1,5 @@
 import '@/styles/globals.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import 'aos/dist/aos.css';
 import { store } from "@/store/store";
 import { Provider } from "react-redux";
