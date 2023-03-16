@@ -11,7 +11,9 @@ const signup  = async (req, res)  => {
                 {
                     headers: {
                       'Content-Type': 'application/json'
-                    }
+                    },
+                    withCredentials : true
+
                 }
             )
             .then(function (response) {
