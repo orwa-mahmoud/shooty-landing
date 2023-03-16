@@ -1,20 +1,55 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useSelector,useDispatch } from 'react-redux';
 import allActions from '../../store/actions';
-
+import {useForm} from "react-hook-form";
+import { ErrorMessage } from '@hookform/error-message';
+import axios from "axios";
 function ForgotPassword() {
+
+    const {register, formState: { errors },setError,reset,getValues, handleSubmit} = useForm();
 
     const showForgotEmailModal = useSelector((state) => state.showHideModal.showForgotEmailModal)
     const dispatch =useDispatch()
 
+    const [ isSubmitting,setIsSubmitting ] = useState(false)
+
     const closeModal = (e) => {
-        e.preventDefault(); 
+        //e.preventDefault();
+        reset({
+            "email":"",
+        });
         dispatch(allActions.showHideModalActions.hideForgotEmailModal())
       }
 
+      const saveFormData = async (data) => {
+        setIsSubmitting(true)
+        resetPassword(data);
+        reset({
+            "email":"",
+        });
+        setIsSubmitting(false)    
+      }
+      const resetPassword = async (data) => {
+          setIsSubmitting(true)
+          await axios.post("/api/auth/forgotPassword",
+          data,
+            {
+              headers: {'Content-Type': 'application/json'}, 
+              withCredentials : true
+            }
+          ).then(function (response) {
+            console.log('forgot password :',response)
+            setIsSubmitting(false)
+            //dispatch(allActions.showHideModalActions.hideForgotEmailModal())
+          }).catch(function (error) {
+            console.log('forgot password  error :',error)
+            setIsSubmitting(false)
+          })
+      }
+
+      
   return (
     <>
 
@@ -37,16 +72,28 @@ function ForgotPassword() {
                         </div>
                         <div className="p-5  h-100" >
                             <h4 className="p-2">Forgot Password?</h4>
+                            <form onSubmit={handleSubmit(data => {saveFormData(data)})}>
+                                <div className="p-2 form-group mb-4">
+                                    <label htmlFor="email" className="mb-2" style={{color:"#666666"}}> EMAIL</label>
+                                    <input type="text" className="form-control input-background" name="email" id="email" placeholder="Email" {...register("email", {required: "Email is required",pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                        message: "Invalid email address"
+                                    }})}/>
+                                    <ErrorMessage
+                                        errors={errors}
+                                        name="email"
+                                        render={({ message }) => <p className="text-danger">{message} </p>}
+                                    />
+                                </div>
 
-                            <div className="p-2 form-group mb-4">
-                                <label htmlFor="email" className="mb-2" style={{color:"#666666"}}> EMAIL</label>
-                                <input type="text" className="form-control input-background" name="email" id="email" placeholder="Email"/>
-                            </div>
-
-                            <div className="p-2 form-group mb-4">
-                                    <button type="submit"  className="btn btn-block bg-dark rounded-4 w-100 text-white p-2">FORGOT PASSWORD</button>
-                            </div>
-
+                                <div className="p-2 form-group mb-4">
+                                        <button type="submit"  className="btn btn-block bg-dark rounded-4 w-100 text-white p-2" href="#verifyEmailModal" data-bs-toggle="modal"  disabled={isSubmitting}>
+                                            {isSubmitting && (
+                                            <div className="spinner-border spinner-border-sm mr-5" role="status"> </div>
+                                            )} FORGOT PASSWORD
+                                        </button>
+                                </div>
+                            </form>
                         </div>
                         
                     </div>

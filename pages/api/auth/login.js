@@ -1,10 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 axios.defaults.withCredentials = true;
 const login  = async (req, res)  => {
-    
-    // const data = await axios.get(
-    //     'https://pokeapi.co/api/v2/pokemon/'
-    // );
+
     const dataBody = req.body
     console.log('res.data : ',dataBody);
     if (req.method === 'POST') {
@@ -31,7 +28,7 @@ const login  = async (req, res)  => {
                  })
             }
             ).catch(function (error) {
-                console.log(error);
+                console.log('login error ',error);
                 if (error.response) {
                   // The request was made and the server responded with a status code
                   // that falls out of the range of 2xx
@@ -53,8 +50,6 @@ const login  = async (req, res)  => {
                     user:null,
                     token: null,
                     errorMessage: error.response.data.message,
-                    // JWT: token,
-                    // refresh: refreshToken,
                  })
               });
     }        

@@ -1,29 +1,25 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 // import bcrypt from 'bcrypt';
 
-const signup  = async (req, res)  => {
+const profile  = async (req, res)  => {
     
     const dataBody = req.body
+   
     if (req.method === 'POST') {
-        
-         await axios.post(process.env.NEXT_PUBLIC_API_URL+'/auth/signup',
+         await axios.post(process.env.NEXT_PUBLIC_API_URL+'/auth/resend-verification',
                 dataBody,
                 {
-                    headers: {
-                      'Content-Type': 'application/json'
-                    }
+                  headers: {'Content-Type': 'application/json'}, 
+                  withCredentials : true
                 }
             )
             .then(function (response) {
                 res.status(200).json({
-                    message: 'Logged in',
-                    user: response.data.user,
-                    token: response.data.token,
-                    errorMessage:''
+                    message: response.data.message,
                  })
             }
             ).catch(function (error) {
-                console.log('signup error :',error);
+                //console.log('error from: ',error);
                 if (error.response) {
                   // The request was made and the server responded with a status code
                   // that falls out of the range of 2xx
@@ -40,13 +36,10 @@ const signup  = async (req, res)  => {
                   console.log('Error', error.message);
                 }
                 console.log(error.config);
-                res.status(error.response.status).json({
-                    message: error.message,
-                    user:null,
-                    token: null,
-                    errorMessage: error.response.data.message,
+                res.status(200).json({
+                    message: 'Verification Email error',
                  })
               });
     }        
 };
-export default signup;
+export default profile;

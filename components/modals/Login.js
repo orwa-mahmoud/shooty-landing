@@ -44,8 +44,6 @@ function Login() {
     setIsSubmitting(true)
     login(data);
     setIsSubmitting(false)
-    console.log('test : ',data);
-    console.log('submit : ',isSubmitting);
 
   }
   const login = async (data) => {
@@ -57,7 +55,6 @@ function Login() {
         withCredentials : true
       }
     ).then(async function (response) {
-      console.log('login async :',response)
       const res = response.data;
       await axios.get("/api/auth/profile",
       {

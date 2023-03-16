@@ -2,14 +2,10 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 // import bcrypt from 'bcrypt';
 
 const profile  = async (req, res)  => {
-    
-    // const data = await axios.get(
-    //     'https://pokeapi.co/api/v2/pokemon/'
-    // );
+
     const dataBody = req.body
    
     if (req.method === 'GET') {
-      console.log('req data: ',req);
          await axios.get(process.env.NEXT_PUBLIC_API_URL+'/auth/profile',
                 {
                   headers: {'Content-Type': 'application/json'}, 
@@ -17,7 +13,6 @@ const profile  = async (req, res)  => {
                 }
             )
             .then(function (response) {
-                console.log('data profile from: ',response.data);
                 res.status(200).json({
                     message: 'Logged in',
                     user: '',
@@ -26,7 +21,7 @@ const profile  = async (req, res)  => {
                  })
             }
             ).catch(function (error) {
-                //console.log('error from: ',error);
+                console.log('profile error: ',error);
                 if (error.response) {
                   // The request was made and the server responded with a status code
                   // that falls out of the range of 2xx
@@ -48,8 +43,6 @@ const profile  = async (req, res)  => {
                     user:null,
                     token: null,
                     errorMessage: error.response.data.message,
-                    // JWT: token,
-                    // refresh: refreshToken,
                  })
               });
     }        

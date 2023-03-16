@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import Image from 'next/image'
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useSelector,useDispatch } from 'react-redux';
 import allActions from '../../store/actions';
@@ -16,8 +15,6 @@ function Signup() {
   const [ isSubmitting,setIsSubmitting ] = useState(false)
 
   const handleChange = () => { 
-    
-    console.log('The checkbox was toggled :',readConditionChekced); 
     setReadConditionChekced(!readConditionChekced)
   };
   
@@ -55,9 +52,6 @@ function Signup() {
     setIsSubmitting(true)
     signup(data);
     setIsSubmitting(false)
-    console.log('test : ',data);
-    console.log('submit : ',isSubmitting);
-
   }
   const signup = async (data) => {
 
@@ -68,7 +62,6 @@ function Signup() {
         withCredentials : true
         }
     ).then(function (response) {
-        console.log('register :',response)
         const res = response.data;
         if(res.user){
             reset({
@@ -79,7 +72,6 @@ function Signup() {
                 "password":"",
                 "repeatPassword":""
             });
-            console.log('res :',res)
             dispatch(allActions.authActions.register(res))
             dispatch(allActions.showHideModalActions.hideSignupModal())
             dispatch(allActions.showHideModalActions.showVirifyEmailModal())  
