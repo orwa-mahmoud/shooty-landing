@@ -6,7 +6,7 @@ const initialState = {
     showVirifyEmailModal: false,
 }; //Initial state of the counter
 
-const showHideModal = (state= initialState,action) => {
+const showHideModalReducer = (state= initialState,action) => {
     switch (action.type) {
         
         // show modal
@@ -33,4 +33,4 @@ const showHideModal = (state= initialState,action) => {
     }
 }
 
-export default showHideModal
+export default showHideModalReducer

@@ -9,3 +9,8 @@ export const HIDE_SIGNUP_MODAL = 'HIDE_SIGNUP_MODAL';
 export const HIDE_FORGOT_EMAIL_MODAL = 'HIDE_FORGOT_EMAIL_MODAL'; 
 export const HIDE_VIRIFY_EMAIL_MODAL = 'HIDE_VIRIFY_EMAIL_MODAL'; 
 
+
+// AUTH 
+export const REGISTER = "REGISTER";
+export const LOGIN    = "LOGIN";
+

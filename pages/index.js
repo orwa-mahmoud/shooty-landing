@@ -13,6 +13,9 @@ import React,{useEffect} from 'react'
 import AOS from 'aos';
 import Modals from '@/components/modals/modals'
 const inter = Inter({ subsets: ['latin'] })
+import axios from "axios";
+
+axios.defaults.withCredentials = true
 
 export default function Home() {
 
