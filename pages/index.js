@@ -11,7 +11,7 @@ import Footer from '../components/Footer'
 import Clients from '../components/Clients'
 import React,{useEffect} from 'react'
 import AOS from 'aos';
-import Modals from '@/components/modals/modals'
+import Modals from '@/components/modals/Modals'
 const inter = Inter({ subsets: ['latin'] })
 import axios from "axios";
 
