@@ -58,6 +58,7 @@ function Login() {
             }
         ).then(async function (response) {
 
+          console.log(response.data);
             const res = response.data;
 
             const setCookieArray = res.authCookie;
@@ -74,27 +75,27 @@ function Login() {
                     path: path,
                 });
             }
-            await axios.get("/api/auth/profile",
-                {
-                    headers: {'Content-Type': 'application/json',},
-                    withCredentials: true
-                }
-            ).then(function (response) {
-                console.log('profile :', response)
-                const res = response.data;
+            // await axios.get("/api/auth/profile",
+            //     {
+            //         headers: {'Content-Type': 'application/json',},
+            //         withCredentials: true
+            //     }
+            // ).then(function (response) {
+            //     console.log('profile :', response)
+            //     const res = response.data;
 
-            }).catch(function (error) {
-                console.log('profile error :', error)
-            })
-            // if(res.user){
-            //   window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL;
-            //     reset({
-            //         "email":"",
-            //         "password":"",
-            //     });
-            //     dispatch(allActions.authActions.login(res))
-            //     dispatch(allActions.showHideModalActions.hideLoginModal())
-            // }
+            // }).catch(function (error) {
+            //     console.log('profile error :', error)
+            // })
+            if(res.user){
+              window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL;
+                reset({
+                    "email":"",
+                    "password":"",
+                });
+                dispatch(allActions.authActions.login(res))
+                dispatch(allActions.showHideModalActions.hideLoginModal())
+            }
 
         }).catch(function (error) {
             setLoginError(error.response.data.errorMessage)
