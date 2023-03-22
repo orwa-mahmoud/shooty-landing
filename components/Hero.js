@@ -1,28 +1,60 @@
-import React from 'react'
+import React,{ useEffect,useState } from 'react'
 import Image from 'next/image'
+import axios from "axios";
 function Hero() {
+
+    const [heroSectionContent, setHeroSectionContent] = useState([]);
+
+    const getHeroSectionContent = async (data) => {
+
+        await axios.get("/api/heroSectionContent", data,
+            {
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: true
+            }
+        )
+        .then(async function (response) {
+            //console.log('response.data.heroSectionContent:',response.data.heroSectionContent);
+            setHeroSectionContent(response.data.heroSectionContent)
+        })
+        .catch(function (error) {
+            console.log('items error:',error);
+        })
+    }
+
+    useEffect(() => {
+        getHeroSectionContent()
+    },[]);
+
   return (
     <>
         <section id="hero" className="hero d-flex align-items-center">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-5 d-flex flex-column justify-content-center">
-                        <h4 data-aos="fade-up" className="slogan-1">BUILDING CAPABILITIES</h4>
-                        <h1 data-aos="fade-up">Enabling organizations<br/> to grow</h1>
+                        <h4 data-aos="fade-up" className="slogan-1">{heroSectionContent.slogan_1}</h4>
+                        <h1 data-aos="fade-up">{heroSectionContent.headLine_1}<br/> {heroSectionContent.headLine_2}</h1>
                         <div data-aos="fade-up">
                             <div className="text-center text-lg-start">
                                 <a href={"#signUpModal"} data-bs-toggle="modal"
                                    className="btn-get-started scrollto d-inline-flex align-items-center
                                    justify-content-center align-self-center">
-                                    <span>Signup for free</span>
+                                    <span>{heroSectionContent.signup}</span>
                                     <i className="bi bi-arrow-right"></i>
                                 </a>
                             </div>
                         </div>
-                        <a data-aos="fade-up" href="#" className="slogan-2">Watch Demo</a>
+                        <a data-aos="fade-up" href="#" className="slogan-2">{heroSectionContent.watchDemo}</a>
                     </div>
                     <div className="col-lg-7 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                        <Image src="/assets/img/hero-img.png"  alt="" fill className="img-fluid custom-img"/>
+                        {heroSectionContent.hero_img && (
+                            <Image
+                                src={heroSectionContent.hero_img}
+                                alt="" 
+                                fill 
+                                className="img-fluid custom-img"
+                            />
+                        )}
                     </div>
                 </div>
             </div>
