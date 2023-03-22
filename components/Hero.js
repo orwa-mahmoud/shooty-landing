@@ -14,7 +14,6 @@ function Hero() {
             }
         )
         .then(async function (response) {
-            //console.log('response.data.heroSectionContent:',response.data.heroSectionContent);
             setHeroSectionContent(response.data.heroSectionContent)
         })
         .catch(function (error) {
