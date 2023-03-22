@@ -39,13 +39,17 @@ function Demo() {
                 </div>
                 <div className="row d-flex flex-wrap align-items-center">
                     <div className="col-lg-6">
+                    {demoSectionContent.image && (
                         <Image src={demoSectionContent.image} fill className="img-fluid custom-img" alt="Slider"
-                            data-aos="zoom-out" data-aos-delay="200" />
+                        data-aos="zoom-out" data-aos-delay="200" />
+                    )}  
                     </div>
                     <div className="col-lg-6">
                         <div className="row d-flex flex-wrap align-items-center">
                             <div className="col-2">
+                            {demoSectionContent.watchDemoIcon && (
                                 <Image fill className="play-icon custom-img" src={demoSectionContent.watchDemoIcon} alt="Watch Demo" data-aos="fade-up"/>
+                            )}
                             </div>
                             <div className="col-8">
                                 <h4 data-aos="fade-up">{demoSectionContent.watchDemo}</h4>
