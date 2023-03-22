@@ -74,15 +74,29 @@ function Header() {
             </a>
             <nav ref={navbarMobileRef} id="navbar" className={"navbar "+(navbarMobile ? 'navbar-mobile': '')}>
                 <ul>
-                    {headerItems.map(item => (
-                        <li><a className="nav-link scrollto" href="" key={item.id}>{item}</a></li>
-                    ))}
+                    {headerItems.map((item,index) => {
+                        if(item === 'Login'){
+                           return   <li key={index}>
+                                        <a className="nav-link scrollto" href="#" data-bs-toggle="modal"
+                                            onClick={(e) => loginShowModal(e)}>{item}
+                                        </a>
+                                    </li>
+                        }else if(item === 'Join for free'){
+                            return  <li key={index}>
+                                        <a className="getstarted scrollto" href={"#signUpModal"} data-bs-toggle="modal"
+                                        onClick={(e) => signupShowModal(e)}>{item}
+                                        </a>
+                                    </li>
+                        }else{
+                            return  <li key={index}><a className="nav-link scrollto" href="">{item}</a></li>
+                        } 
+                    })}
                     {/* <li><a className="nav-link scrollto" href="">Solutions</a></li>
                     <li><a className="nav-link scrollto" href="">Platform</a></li>
                     <li><a className="nav-link scrollto" href="">Resources</a></li>
                     <li><a className="nav-link scrollto" href="">Case Studies</a></li>
                     <li><a className="nav-link scrollto" href="">Marketplace</a></li>
-                    <li><a className="nav-link scrollto" href="">Trial</a></li> */}
+                    <li><a className="nav-link scrollto" href="">Trial</a></li>
                     <li>
                         <a className="nav-link scrollto" href="#" data-bs-toggle="modal"
                            onClick={(e) => loginShowModal(e)}>Login
@@ -92,7 +106,7 @@ function Header() {
                         <a className="getstarted scrollto" href={"#signUpModal"} data-bs-toggle="modal"
                            onClick={(e) => signupShowModal(e)}>Join for free
                         </a>
-                    </li>
+                    </li> */}
                 </ul>
                 <i ref={mobileNavToggleRef} className="bi  mobile-nav-toggle bi-list" onClick={(e) => handleNavbarMobile(e)}></i>
             </nav>
