@@ -2,12 +2,14 @@ import { useEffect,useState,useRef } from 'react'
 import Image from 'next/image'
 import { useSelector, useDispatch } from 'react-redux';
 import allActions from '../store/actions';
+import axios from "axios";
 
 function Header() {
 
     const showLoginModal = useSelector((state) => state.showHideModal.showLoginModal)
     const dispatch =useDispatch()
     
+    const [headerItems, setHeaderItems] = useState([]);
     const [headerScrolled, setheaderScrolled] = useState(false);
     const [navbarMobile, setNavbarMobile] = useState(false);
     const mobileNavToggleRef = useRef(null);
@@ -43,6 +45,26 @@ function Header() {
           }
     }
 
+    const getHeaderItems = async (data) => {
+
+        await axios.get("/api/headerItems", data,
+            {
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: true
+            }
+        )
+        .then(async function (response) {
+          setHeaderItems(response.data.items)
+        })
+        .catch(function (error) {
+            console.log('items error:',error);
+        })
+    }
+
+    useEffect(() => {
+        getHeaderItems()
+    },[]);
+
   return (
     <>
     <header id="header" className={ "header fixed-top "+(headerScrolled ? "header-scrolled":'')} >
@@ -52,12 +74,15 @@ function Header() {
             </a>
             <nav ref={navbarMobileRef} id="navbar" className={"navbar "+(navbarMobile ? 'navbar-mobile': '')}>
                 <ul>
-                    <li><a className="nav-link scrollto" href="">Solutions</a></li>
+                    {headerItems.map(item => (
+                        <li><a className="nav-link scrollto" href="" key={item.id}>{item}</a></li>
+                    ))}
+                    {/* <li><a className="nav-link scrollto" href="">Solutions</a></li>
                     <li><a className="nav-link scrollto" href="">Platform</a></li>
                     <li><a className="nav-link scrollto" href="">Resources</a></li>
                     <li><a className="nav-link scrollto" href="">Case Studies</a></li>
                     <li><a className="nav-link scrollto" href="">Marketplace</a></li>
-                    <li><a className="nav-link scrollto" href="">Trial</a></li>
+                    <li><a className="nav-link scrollto" href="">Trial</a></li> */}
                     <li>
                         <a className="nav-link scrollto" href="#" data-bs-toggle="modal"
                            onClick={(e) => loginShowModal(e)}>Login

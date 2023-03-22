@@ -75,18 +75,6 @@ function Login() {
                     path: path,
                 });
             }
-            // await axios.get("/api/auth/profile",
-            //     {
-            //         headers: {'Content-Type': 'application/json',},
-            //         withCredentials: true
-            //     }
-            // ).then(function (response) {
-            //     console.log('profile :', response)
-            //     const res = response.data;
-
-            // }).catch(function (error) {
-            //     console.log('profile error :', error)
-            // })
             if(res.user){
               window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL;
                 reset({
@@ -99,22 +87,6 @@ function Login() {
 
         }).catch(function (error) {
             setLoginError(error.response.data.errorMessage)
-            // alert(error)
-            // if (error.response) {
-            //   console.log('error',error);
-            //   // The request was made and the server responded with a status code
-            //   // that falls out of the range of 2xx
-            //   console.log(error.response.data);
-            //   console.log(error.response.status);
-            //   console.log(error.response.headers);
-            // } else if (error.request) {
-            //   console.log(error.request);
-            // } else {
-            //   // Something happened in setting up the request that triggered an Error
-            //   console.log('Error', error.message);
-            // }
-            // console.log(error.config);
-
         })
 
     }
@@ -124,9 +96,6 @@ function Login() {
         <>
             <Modal show={showLoginModal} onHide={closeModal} size="lg" aria-labelledby="contained-modal-title-vcenter"
                    centered>
-                {/* <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header> */}
                 <Modal.Body>
                     <div className="container">
                         <div className="row">
@@ -246,14 +215,6 @@ function Login() {
                         </div>
                     </div>
                 </Modal.Body>
-                {/* <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer> */}
             </Modal>
         </>
     )
