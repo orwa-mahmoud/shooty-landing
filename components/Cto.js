@@ -1,5 +1,7 @@
 import React,{ useEffect,useState } from 'react'
 import axios from "axios";
+import { useDispatch } from 'react-redux';
+import allActions from '../store/actions';
 function Cto() {
 
     const [ctoSectionContent, setCtoSectionContent] = useState([]);
@@ -26,6 +28,14 @@ function Cto() {
         getCtoSectionContent()
     },[]);
 
+
+    const dispatch =useDispatch()
+
+    const signupShowModal = (e) => {
+        e.preventDefault(); 
+        dispatch(allActions.showHideModalActions.showSignupModal())
+    }
+
   return (
     <>
         <section id="cto" className="cto">
@@ -37,7 +47,7 @@ function Cto() {
                         </h1>
                         <h2>{mainCtoSectionContent.body}</h2>
                         <br/>
-                        <a href={"#signUpModal"} data-bs-toggle="modal" className="btn-get-started">
+                        <a href={"#signUpModal"} data-bs-toggle="modal" className="btn-get-started"  onClick={(e) => signupShowModal(e)}>
                             <span>{mainCtoSectionContent.signupForFree}</span>
                         </a>
                     </div>
