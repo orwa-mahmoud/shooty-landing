@@ -74,10 +74,10 @@ function Footer() {
                             <br/>
                             <p>{footerSectionContent.body}</p>
                             <div className="social-links mt-5">
-                                <a href="#" className="twitter"><i className="bi bi-twitter"></i></a>
-                                <a href="#" className="facebook"><i className="bi bi-facebook"></i></a>
-                                <a href="#" className="instagram"><i className="bi bi-instagram"></i></a>
-                                <a href="#" className="linkedin"><i className="bi bi-linkedin"></i></a>
+                                <a href="#" className="twitter" aria-label="twitter"><i className="bi bi-twitter"></i></a>
+                                <a href="#" className="facebook" aria-label="facebook"><i className="bi bi-facebook"></i></a>
+                                <a href="#" className="instagram" aria-label="instagram"><i className="bi bi-instagram"></i></a>
+                                <a href="#" className="linkedin" aria-label="linkedin"><i className="bi bi-linkedin"></i></a>
                             </div>
                         </div>
 
