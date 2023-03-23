@@ -21,6 +21,7 @@ const headerItems = async (req, res) => {
         //     })
         // });
         res.status(200).json({
+            logo:'/assets/img/logo.png',
             items:['Solutions','Platform','Resources','Case Studies','Marketplace','Trial','Login','Join for free']
         })
     }

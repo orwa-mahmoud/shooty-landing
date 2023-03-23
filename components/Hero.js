@@ -52,6 +52,7 @@ function Hero() {
                                 alt="" 
                                 fill 
                                 className="img-fluid custom-img"
+                                priority={true}
                             />
                         )}
                     </div>
