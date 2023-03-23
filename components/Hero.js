@@ -1,6 +1,8 @@
 import React,{ useEffect,useState } from 'react'
 import Image from 'next/image'
 import axios from "axios";
+import { useDispatch } from 'react-redux';
+import allActions from '../store/actions';
 function Hero() {
 
     const [heroSectionContent, setHeroSectionContent] = useState([]);
@@ -25,6 +27,13 @@ function Hero() {
         getHeroSectionContent()
     },[]);
 
+    const dispatch =useDispatch()
+
+    const signupShowModal = (e) => {
+        e.preventDefault(); 
+        dispatch(allActions.showHideModalActions.showSignupModal())
+    }
+
   return (
     <>
         <section id="hero" className="hero d-flex align-items-center">
@@ -35,7 +44,7 @@ function Hero() {
                         <h1 data-aos="fade-up">{heroSectionContent.headLine_1}<br/> {heroSectionContent.headLine_2}</h1>
                         <div data-aos="fade-up">
                             <div className="text-center text-lg-start">
-                                <a href={"#signUpModal"} data-bs-toggle="modal"
+                                <a href={"#signUpModal"} data-bs-toggle="modal"  onClick={(e) => signupShowModal(e)}
                                    className="btn-get-started scrollto d-inline-flex align-items-center
                                    justify-content-center align-self-center">
                                     <span>{heroSectionContent.signup}</span>
