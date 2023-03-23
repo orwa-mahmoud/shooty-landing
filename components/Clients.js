@@ -48,24 +48,6 @@ function Clients() {
                     )
 
                     }
-                    {/* <div className="col-4 col-lg-2" data-aos="zoom-out" data-aos-delay="100" >
-                        <Image src="/assets/img/adidas.png" alt="Dior"  width={100} height={50} className="custom-img width-60 img-fluid"/>
-                    </div>
-                    <div className="col-4 col-lg-2" data-aos="zoom-out" data-aos-delay="100" >
-                        <Image src="/assets/img/client-1.png" alt="Dior"  width={100} height={50} className="custom-img width-60  img-fluid"/>
-                    </div>
-                    <div className="col-4 col-lg-2" data-aos="zoom-out" data-aos-delay="100">
-                        <Image src="/assets/img/client-2.png" alt="Dior"  width={100} height={50} className="custom-img width-60  img-fluid"/>
-                    </div>
-                    <div className="col-4 col-lg-2" data-aos="zoom-out" data-aos-delay="100">
-                        <Image src="/assets/img/client-3.png" alt="Dior"  width={100} height={50} className="custom-img width-60  img-fluid"/>
-                    </div>
-                    <div className="col-4 col-lg-2" data-aos="zoom-out" data-aos-delay="100">
-                        <Image src="/assets/img/client-4.png" alt="Dior"  width={100} height={50} className="custom-img width-60  img-fluid"/>
-                    </div>
-                    <div className="col-4 col-lg-2" data-aos="zoom-out" data-aos-delay="100">
-                        <Image src="/assets/img/client-5.png" alt="Dior"  width={100} height={50} className="custom-img width-60  img-fluid"/>
-                    </div> */}
                 </div>
             </div>
         </section>

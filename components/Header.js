@@ -91,22 +91,6 @@ function Header() {
                             return  <li key={index}><a className="nav-link scrollto" href="">{item}</a></li>
                         } 
                     })}
-                    {/* <li><a className="nav-link scrollto" href="">Solutions</a></li>
-                    <li><a className="nav-link scrollto" href="">Platform</a></li>
-                    <li><a className="nav-link scrollto" href="">Resources</a></li>
-                    <li><a className="nav-link scrollto" href="">Case Studies</a></li>
-                    <li><a className="nav-link scrollto" href="">Marketplace</a></li>
-                    <li><a className="nav-link scrollto" href="">Trial</a></li>
-                    <li>
-                        <a className="nav-link scrollto" href="#" data-bs-toggle="modal"
-                           onClick={(e) => loginShowModal(e)}>Login
-                        </a>
-                    </li>
-                    <li>
-                        <a className="getstarted scrollto" href={"#signUpModal"} data-bs-toggle="modal"
-                           onClick={(e) => signupShowModal(e)}>Join for free
-                        </a>
-                    </li> */}
                 </ul>
                 <i ref={mobileNavToggleRef} className="bi  mobile-nav-toggle bi-list" onClick={(e) => handleNavbarMobile(e)}></i>
             </nav>
