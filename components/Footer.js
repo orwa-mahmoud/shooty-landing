@@ -66,7 +66,7 @@ function Footer() {
                             })
                         }
                         <div className="col-lg-6 col-md-12 footer-info">
-                            <a href="index.html" className="logo d-flex align-items-center">
+                            <a href={"/"} className="logo d-flex align-items-center">
                                 {footerSectionContent.logo && (
                                   <Image src={footerSectionContent.logo} alt="Shooty"  width={100} height={50} className="img-fluid custom-img"/>
                                 )}
