@@ -10,7 +10,7 @@ function Header() {
     const dispatch =useDispatch()
     
     const [headerItems, setHeaderItems] = useState([]);
-    const [logo, setLogo] = useState([]);
+    const [logo, setLogo] = useState('');
     const [headerScrolled, setheaderScrolled] = useState(false);
     const [navbarMobile, setNavbarMobile] = useState(false);
     const mobileNavToggleRef = useRef(null);
@@ -72,7 +72,9 @@ function Header() {
     <header id="header" className={ "header fixed-top "+(headerScrolled ? "header-scrolled":'')} >
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
             <a href={"/"} className="logo d-flex align-items-center">
+            {logo && (
                 <Image src={logo} alt="Shooty" width={100} height={50} className="img-fluid custom-img" priority={true}/>
+            )}
             </a>
             <nav ref={navbarMobileRef} id="navbar" className={"navbar "+(navbarMobile ? 'navbar-mobile': '')}>
                 <ul>
