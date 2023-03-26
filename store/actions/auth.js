@@ -14,9 +14,17 @@ export const login = (data) => {
     }
 }
 
+export const restPasswordEmail = (data) => {
+    return {
+        type: actionTypes.RESET_PASSWORD_EMAIL,
+        payload: data
+    }
+}
+
 const authActions = {
     register,
     login,
+    restPasswordEmail,
 }
 
 

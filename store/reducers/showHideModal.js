@@ -4,6 +4,7 @@ const initialState = {
     showSignupModal: false,
     showForgotEmailModal: false,
     showVirifyEmailModal: false,
+    showResetPasswordLinkEmailModal:false,
 }; //Initial state of the counter
 
 const showHideModalReducer = (state= initialState,action) => {
@@ -18,6 +19,8 @@ const showHideModalReducer = (state= initialState,action) => {
             return {...state, showForgotEmailModal: true,};  
         case 'SHOW_VIRIFY_EMAIL_MODAL':
             return {...state, showVirifyEmailModal: true,};
+        case 'SHOW_RESET_PASSWORD_LINK_EMAIL_MODAL':
+            return {...state, showResetPasswordLinkEmailModal: true,};
 
         // hide modal 
         case 'HIDE_LOGIN_MODAL':
@@ -28,6 +31,8 @@ const showHideModalReducer = (state= initialState,action) => {
             return {...state, showForgotEmailModal: false,}; 
         case 'HIDE_VIRIFY_EMAIL_MODAL':
             return {...state, showVirifyEmailModal: false,};
+        case 'HIDE_RESET_PASSWORD_LINK_EMAIL_MODAL':
+            return {...state, showResetPasswordLinkEmailModal: false,};
         default:
             return state
     }
