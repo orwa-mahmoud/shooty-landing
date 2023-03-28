@@ -30,7 +30,7 @@ function Demo() {
   return (
     <>
         <section id="demo" className="demo">
-            <div className="container">
+            <div className="container" id="platform">
                 <div className="row">
                     <div className="col-12">
                         <h1 data-aos="fade-up">{mainDemoSectionContent.headLine}</h1>

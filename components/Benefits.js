@@ -31,7 +31,7 @@ function Benefits() {
     <>
     <section id="icons" className="icons">
         <div className="container">
-            <div className="row text-center">
+            <div className="row text-center" id="solutions">
                 <div className="col-12">
                     <h1 data-aos="fade-up">{mainBenefitSectionContent.headLine}</h1>
                     <h3 data-aos="fade-up">{mainBenefitSectionContent.body}</h3>

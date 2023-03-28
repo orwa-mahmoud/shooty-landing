@@ -52,7 +52,7 @@ function Hero() {
                                 </a>
                             </div>
                         </div>
-                        <a data-aos="fade-up" href="#" className="slogan-2">{heroSectionContent.watchDemo}</a>
+                        <a data-aos="fade-up" href="#platform" className="slogan-2">{heroSectionContent.watchDemo}</a>
                     </div>
                     <div className="col-lg-7 hero-img" data-aos="zoom-out" data-aos-delay="200">
                         {heroSectionContent.hero_img && (

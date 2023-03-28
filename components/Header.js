@@ -71,7 +71,7 @@ function Header() {
     <>
     <header id="header" className={ "header fixed-top "+(headerScrolled ? "header-scrolled":'')} >
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
-            <a href={"/"} className="logo d-flex align-items-center">
+            <a href={"#hero"} className="logo d-flex align-items-center">
             {logo && (
                 <Image src={logo} alt="Shooty" width={100} height={50} className="img-fluid custom-img" priority={true}/>
             )}
@@ -79,20 +79,20 @@ function Header() {
             <nav ref={navbarMobileRef} id="navbar" className={"navbar "+(navbarMobile ? 'navbar-mobile': '')}>
                 <ul>
                     {headerItems.map((item,index) => {
-                        if(item === 'Login'){
+                        if(item.name === 'Login'){
                            return   <li key={index}>
-                                        <a className="nav-link scrollto" href="#" data-bs-toggle="modal"
-                                            onClick={(e) => loginShowModal(e)}>{item}
+                                        <a className="nav-link" data-bs-toggle="modal"
+                                            onClick={(e) => loginShowModal(e)}>{item.name}
                                         </a>
                                     </li>
-                        }else if(item === 'Join for free'){
+                        }else if(item.name === 'Join for free'){
                             return  <li key={index}>
-                                        <a className="getstarted scrollto" href={"#signUpModal"} data-bs-toggle="modal"
-                                        onClick={(e) => signupShowModal(e)}>{item}
+                                        <a className="getstarted" data-bs-toggle="modal"
+                                        onClick={(e) => signupShowModal(e)}>{item.name}
                                         </a>
                                     </li>
                         }else{
-                            return  <li key={index}><a className="nav-link scrollto" href="">{item}</a></li>
+                            return  <li key={index}><a className="nav-link scrollto" href={item.link}>{item.name}</a></li>
                         } 
                     })}
                 </ul>

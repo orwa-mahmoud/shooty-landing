@@ -22,7 +22,16 @@ const headerItems = async (req, res) => {
         // });
         res.status(200).json({
             logo:'/assets/img/logo.png',
-            items:['Solutions','Platform','Resources','Case Studies','Marketplace','Trial','Login','Join for free']
+            items:[
+                { id: 1, name: 'Solutions', link: '#solutions' },
+                { id: 2, name: 'Platform', link: '#platform' },
+                { id: 3, name: 'Resources', link: '/' },
+                { id: 4, name: 'Case Studies', link: '/' },
+                { id: 5, name: 'Marketplace', link: '/' },
+                { id: 6, name: 'Trial', link: '/' },
+                { id: 7, name: 'Login', link: '/' },
+                { id: 8, name: 'Join for free', link: '/' },
+            ]
         })
     }
 };
