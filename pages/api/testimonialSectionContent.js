@@ -22,7 +22,7 @@ const testimonialSectionContent = async (req, res) => {
         // });
         res.status(200).json({
             mainTestimonialSectionContent:{
-                'headLine': 'Loved by the world&apos;s best teams',
+                'headLine': 'Loved by the world\'s best teams',
                 'body'    : 'What they say about us'
             },
            testimonialSectionContent:[
