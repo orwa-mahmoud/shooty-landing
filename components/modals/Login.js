@@ -69,9 +69,12 @@ function Login() {
                 const domain = cookieParts.find((part) => part.startsWith("Domain=")).split("=")[1];
                 const path = cookieParts.find((part) => part.startsWith("Path=")).split("=")[1];
                 const sameSite = cookieParts.find((part) => part.startsWith("SameSite=")).split("=")[1];
+                const expirationDateValue = cookieParts.find((part) => part.startsWith("Expires=")).split("=")[1];
+                const expirationDate = new Date(Date.parse(expirationDateValue))
                 Cookies.set(cookieKey, cookieValue, {
                     domain: domain,
                     path: path,
+                    expires: expirationDate,
                 });
             }
             await axios.get("/api/auth/profile",
@@ -97,6 +100,7 @@ function Login() {
             // }
 
         }).catch(function (error) {
+            console.log(error);
             setLoginError(error.response.data.errorMessage)
             // alert(error)
             // if (error.response) {
