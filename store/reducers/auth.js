@@ -4,6 +4,7 @@ import * as actionTypes from '../actions/actionsTypes';
 const initialState = {
     user: [],
     token: '',
+    resetPasswordEmail: ''
 }
 
 const auth = (state = initialState, action) => {
@@ -19,6 +20,12 @@ const auth = (state = initialState, action) => {
             return {
                 ... state,
                 user: action.payload,
+            } 
+
+        case actionTypes.RESET_PASSWORD_EMAIL:
+            return {
+                ... state,
+                resetPasswordEmail: action.payload,
             } 
             
         default: 

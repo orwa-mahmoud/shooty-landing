@@ -11,9 +11,10 @@ import Footer from '../components/Footer'
 import Clients from '../components/Clients'
 import React,{useEffect} from 'react'
 import AOS from 'aos';
-import Modals from '@/components/modals/modals'
+import Modals from '@/components/modals/Modals'
 const inter = Inter({ subsets: ['latin'] })
 import axios from "axios";
+import Head from 'next/head'
 
 axios.defaults.withCredentials = true
 
@@ -30,6 +31,13 @@ export default function Home() {
 
   return (
     <>
+    <Head>
+          <meta charSet='UFT-8' />
+          <meta name='viewport' content="width=device-width, initial-scale=1.0" />
+          <meta content="" name="title"/>
+          <meta content="" name="description"/>
+          <meta content="" name="keywords"/>
+    </Head>
     <Layout pageTitle="Shooty">
       <Header/>
       <Hero/>

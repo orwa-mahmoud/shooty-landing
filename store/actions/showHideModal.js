@@ -9,11 +9,13 @@ import * as actionTypes from './actionsTypes';
  const showSignupModal = () => ({ type: actionTypes.SHOW_SIGNUP_MODAL });
  const showForgotEmailModal = () => ({ type: actionTypes.SHOW_FORGOT_EMAIL_MODAL });
  const showVirifyEmailModal = () => ({ type: actionTypes.SHOW_VIRIFY_EMAIL_MODAL });
+ const showResetPasswordLinkEmailModal = () => ({ type: actionTypes.SHOW_RESET_PASSWORD_LINK_EMAIL_MODAL });
 
  const hideLoginModal = () => ({ type: actionTypes.HIDE_LOGIN_MODAL });
  const hideSignupModal = () => ({ type: actionTypes.HIDE_SIGNUP_MODAL });
  const hideForgotEmailModal = () => ({ type: actionTypes.HIDE_FORGOT_EMAIL_MODAL });
  const hideVirifyEmailModal = () => ({ type: actionTypes.HIDE_VIRIFY_EMAIL_MODAL });
+ const hideResetPasswordLinkEmailModal = () => ({ type: actionTypes.HIDE_RESET_PASSWORD_LINK_EMAIL_MODAL });
 
 
 
@@ -22,9 +24,11 @@ const showHideModalActions = {
     showSignupModal,
     showForgotEmailModal,
     showVirifyEmailModal,
+    showResetPasswordLinkEmailModal,
     hideLoginModal,
     hideSignupModal,
     hideForgotEmailModal,
-    hideVirifyEmailModal
+    hideVirifyEmailModal,
+    hideResetPasswordLinkEmailModal
  }
  export default showHideModalActions

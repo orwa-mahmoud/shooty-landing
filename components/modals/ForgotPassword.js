@@ -25,10 +25,7 @@ function ForgotPassword() {
 
       const saveFormData = async (data) => {
         setIsSubmitting(true)
-        resetPassword(data);
-        reset({
-            "email":"",
-        });
+        await resetPassword(data);
         setIsSubmitting(false)    
       }
       const resetPassword = async (data) => {
@@ -40,11 +37,14 @@ function ForgotPassword() {
               withCredentials : true
             }
           ).then(function (response) {
-            console.log('forgot password :',response)
             setIsSubmitting(false)
-            //dispatch(allActions.showHideModalActions.hideForgotEmailModal())
+            dispatch(allActions.authActions.restPasswordEmail(data.email))
+            dispatch(allActions.showHideModalActions.hideForgotEmailModal())
+            dispatch(allActions.showHideModalActions.showResetPasswordLinkEmailModal())
+            reset({
+              "email":"",
+          });
           }).catch(function (error) {
-            console.log('forgot password  error :',error)
             setIsSubmitting(false)
           })
       }

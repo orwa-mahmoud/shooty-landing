@@ -1,6 +1,9 @@
-import React,{ useState,useEffect } from 'react'
+import React,{ useEffect,useState } from 'react'
 import Image from 'next/image'
+import axios from "axios";
 function Footer() {
+
+    const currentYear = new Date().getFullYear();
 
     const [scrolled, setScrolled] = useState(false);
 
@@ -12,56 +15,69 @@ function Footer() {
         setScrolled(window.scrollY > 100);
     }
 
+    const [footerSectionContent, setFooterSectionContent] = useState([]);
+    const [menuItems, setMenuItems] = useState([]);
+    const [legalPoliciesItems, setLegalPoliciesItems] = useState([]);
+
+    const getFooterSectionContent = async (data) => {
+
+        await axios.get("/api/footerSectionContent", data,
+            {
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: true
+            }
+        )
+        .then(async function (response) {
+            setFooterSectionContent(response.data.footerSectionContent)
+            setMenuItems(response.data.menuItems)
+            setLegalPoliciesItems(response.data.footerSectionContent.legalPoliciesItems)
+        })
+        .catch(function (error) {
+            console.log('items error:',error);
+        })
+    }
+
+    useEffect(() => {
+        getFooterSectionContent()
+    },[]);
+
   return (
     <>
         <footer id="footer" className="footer">
             <div className="footer-top">
                 <div className="container">
                     <div className="row gy-4">
-                        <div className="col-lg-2 col-6 footer-links">
-                            <h4><strike>Community</strike></h4>
-                            <ul>
-                                <li><a href="#"><strike>Tutorials</strike></a></li>
-                                <li><a href="#"><strike>Documentation</strike></a></li>
-                                <li><a href="#"><strike>Forums</strike></a></li>
-                            </ul>
-                        </div>
-                        <div className="col-lg-2 col-6 footer-links">
-                            <h4><strike>Services</strike></h4>
-                            <ul>
-                                <li><a href="#"><strike>Tutorials</strike></a></li>
-                                <li><a href="#"><strike>Documentation</strike></a></li>
-                                <li><a href="#"><strike>Forums</strike></a></li>
-                            </ul>
-                        </div>
-                        <div className="col-lg-2 col-6 footer-links">
-                            <h4><strike>About Us</strike></h4>
-                            <ul>
-                                <li><a href="#"><strike>Tutorials</strike></a></li>
-                                <li><a href="#"><strike>Documentation</strike></a></li>
-                                <li><a href="#"><strike>Forums</strike></a></li>
-                                <li><a href="#"><strike>Tutorials</strike></a></li>
-                                <li><a href="#"><strike>Documentation</strike></a></li>
-                                <li><a href="#"><strike>Forums</strike></a></li>
-                            </ul>
-                        </div>
+                        {
+                            menuItems.map((item,index) => {
+                                return (
+                                    <div key={index} className="col-lg-2 col-6 footer-links">
+                                        <h4><strike>{item.header}</strike></h4>
+                                        <ul>
+                                            {
+                                             item.menu.map((item2,index2) => {
+                                                    return (
+                                                        <li key={index2} ><a href="#"><strike>{item2}</strike></a></li>
+                                                    )
+                                              })
+                                            }
+                                        </ul>
+                                    </div>
+                                )
+                            })
+                        }
                         <div className="col-lg-6 col-md-12 footer-info">
-                            <a href="index.html" className="logo d-flex align-items-center">
-                               <Image src="/assets/img/logo.png" alt="Shooty"  width={100} height={50} className="img-fluid custom-img"/>
+                            <a href={"/"} className="logo d-flex align-items-center">
+                                {footerSectionContent.logo && (
+                                  <Image src={footerSectionContent.logo} alt="Shooty"  width={100} height={50} className="img-fluid custom-img"/>
+                                )}
                             </a>
                             <br/>
-                            <p>Lorem Ipsum is the single greatest threat. We are not -
-                                we are not keeping up with other websites. Lorem Ipsum
-                                best not make any more threats to your website. It will be
-                                met with fire and fury like the world has never seen. Does
-                                everybody know that pig named Lorem Ipsum? An ‘extremely
-                                credible source’ has called my office and told me that Barack
-                                Obama’s placeholder text is a fraud.</p>
+                            <p>{footerSectionContent.body}</p>
                             <div className="social-links mt-5">
-                                <a href="#" className="twitter"><i className="bi bi-twitter"></i></a>
-                                <a href="#" className="facebook"><i className="bi bi-facebook"></i></a>
-                                <a href="#" className="instagram"><i className="bi bi-instagram"></i></a>
-                                <a href="#" className="linkedin"><i className="bi bi-linkedin"></i></a>
+                                <a href="#" className="twitter" aria-label="twitter"><i className="bi bi-twitter"></i></a>
+                                <a href="#" className="facebook" aria-label="facebook"><i className="bi bi-facebook"></i></a>
+                                <a href="#" className="instagram" aria-label="instagram"><i className="bi bi-instagram"></i></a>
+                                <a href="#" className="linkedin" aria-label="linkedin"><i className="bi bi-linkedin"></i></a>
                             </div>
                         </div>
 
@@ -71,12 +87,16 @@ function Footer() {
             <div className="container">
                 <div className="row text-center">
                     <div className="col-md-6 text-md-start copyright">
-                        &copy; Copyrights. 2023. Shapes Defined.
+                        &copy; Copyrights. &copy; {currentYear}. Shooty.
                     </div>
                     <div className="col-md-6 text-md-end">
-                        <a className="footer-link" href="#">&#x2022; Legal Notice</a>
-                        <a className="footer-link"  href="#">&#x2022; Data Privacy</a>
-                        <a className="footer-link"  href="#">&#x2022; Terms Of Service</a>
+                        {
+                            legalPoliciesItems.map((item,index) => {
+                                return(
+                                    <a key={index} className="footer-link" href="#">&#x2022; {item}</a>
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </div>

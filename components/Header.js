@@ -2,12 +2,15 @@ import { useEffect,useState,useRef } from 'react'
 import Image from 'next/image'
 import { useSelector, useDispatch } from 'react-redux';
 import allActions from '../store/actions';
+import axios from "axios";
 
 function Header() {
 
     const showLoginModal = useSelector((state) => state.showHideModal.showLoginModal)
     const dispatch =useDispatch()
     
+    const [headerItems, setHeaderItems] = useState([]);
+    const [logo, setLogo] = useState('');
     const [headerScrolled, setheaderScrolled] = useState(false);
     const [navbarMobile, setNavbarMobile] = useState(false);
     const mobileNavToggleRef = useRef(null);
@@ -43,31 +46,55 @@ function Header() {
           }
     }
 
+    const getHeaderItems = async (data) => {
+
+        await axios.get("/api/headerItems", data,
+            {
+                headers: {'Content-Type': 'application/json'},
+                withCredentials: true
+            }
+        )
+        .then(async function (response) {
+          setHeaderItems(response.data.items)
+          setLogo(response.data.logo)
+        })
+        .catch(function (error) {
+            console.log('items error:',error);
+        })
+    }
+
+    useEffect(() => {
+        getHeaderItems()
+    },[]);
+
   return (
     <>
     <header id="header" className={ "header fixed-top "+(headerScrolled ? "header-scrolled":'')} >
         <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
-            <a href={"/"} className="logo d-flex align-items-center">
-                <Image src="/assets/img/logo.png" alt="Shooty" width={100} height={50}/>
+            <a href={"#hero"} className="logo d-flex align-items-center">
+            {logo && (
+                <Image src={logo} alt="Shooty" width={100} height={50} className="img-fluid custom-img" priority={true}/>
+            )}
             </a>
             <nav ref={navbarMobileRef} id="navbar" className={"navbar "+(navbarMobile ? 'navbar-mobile': '')}>
                 <ul>
-                    <li><a className="nav-link scrollto" href="">Solutions</a></li>
-                    <li><a className="nav-link scrollto" href="">Platform</a></li>
-                    <li><a className="nav-link scrollto" href="">Resources</a></li>
-                    <li><a className="nav-link scrollto" href="">Case Studies</a></li>
-                    <li><a className="nav-link scrollto" href="">Marketplace</a></li>
-                    <li><a className="nav-link scrollto" href="">Trial</a></li>
-                    <li>
-                        <a className="nav-link scrollto" href="#" data-bs-toggle="modal"
-                           onClick={(e) => loginShowModal(e)}>Login
-                        </a>
-                    </li>
-                    <li>
-                        <a className="getstarted scrollto" href={"#signUpModal"} data-bs-toggle="modal"
-                           onClick={(e) => signupShowModal(e)}>Join for free
-                        </a>
-                    </li>
+                    {headerItems.map((item,index) => {
+                        if(item.name === 'Login'){
+                           return   <li key={index}>
+                                        <a className="nav-link" data-bs-toggle="modal"
+                                            onClick={(e) => loginShowModal(e)}>{item.name}
+                                        </a>
+                                    </li>
+                        }else if(item.name === 'Join for free'){
+                            return  <li key={index}>
+                                        <a className="getstarted" data-bs-toggle="modal"
+                                        onClick={(e) => signupShowModal(e)}>{item.name}
+                                        </a>
+                                    </li>
+                        }else{
+                            return  <li key={index}><a className="nav-link scrollto" href={item.link}>{item.name}</a></li>
+                        } 
+                    })}
                 </ul>
                 <i ref={mobileNavToggleRef} className="bi  mobile-nav-toggle bi-list" onClick={(e) => handleNavbarMobile(e)}></i>
             </nav>
