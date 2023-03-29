@@ -50,7 +50,8 @@ function Login() {
     }
     const login = async (data) => {
 
-
+         let rememberMe =  data.rememberMe;
+         delete data['rememberMe'];
         await axios.post("/api/auth/login", data,
             {
                 headers: {'Content-Type': 'application/json'},
@@ -75,7 +76,7 @@ function Login() {
                 Cookies.set(cookieKey, cookieValue, {
                     domain: domain,
                     path: path,
-                    expires: expirationDate,
+                    expires: rememberMe?expirationDate:undefined,
                 });
             }
             if(res.user){
@@ -89,7 +90,7 @@ function Login() {
             }
 
         }).catch(function (error) {
-            console.log(error);
+            //console.log(error);
             setLoginError(error.response.data.errorMessage)
         })
 
@@ -163,7 +164,7 @@ function Login() {
                                             <div className="col">
                                                 <div className="form-check">
                                                     <input className="form-check-input" type="checkbox" value=""
-                                                           id="rememberMe"/>
+                                                           id="rememberMe" {...register("rememberMe")} defaultChecked />
                                                     <label className="form-check-label"
                                                            htmlFor="form2Example31"> Remember me </label>
                                                 </div>
