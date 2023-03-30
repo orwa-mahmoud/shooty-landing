@@ -21,12 +21,14 @@ const changePassword  = async (req, res)  => {
             )
             .then(function (response) {
                 res.status(200).json({
+                    success:true,
                     message: response.data.message,
                  })
             }
             ).catch(function (error) {
-                console.log('change :',error)
+                console.log('error :',error)
                 res.status(200).json({
+                    success:false,
                     message: error.response.data.message,
                  })
               });

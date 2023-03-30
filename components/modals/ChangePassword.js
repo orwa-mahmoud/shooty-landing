@@ -14,10 +14,16 @@ function ChangePassword() {
     const showChangePasswordModal = useSelector((state) => state.showHideModal.showChangePasswordModal)
     const changePasswordData = useSelector((state) => state.auth.changePasswordData)
     const [loginError, setLoginError] = useState('')
+    const [loginSuccess, setLoginSuccess] = useState('')
     const dispatch =useDispatch()
 
     const [ isSubmitting,setIsSubmitting ] = useState(false)
 
+    const openLoginModal = (e) => {
+      //e.preventDefault(); 
+      dispatch(allActions.showHideModalActions.hideChangePasswordModal())
+      dispatch(allActions.showHideModalActions.showLoginModal())
+    }
     const closeModal = (e) => {
         //e.preventDefault();
         reset({
@@ -32,7 +38,6 @@ function ChangePassword() {
       const saveFormData = async (data) => {
         data.email = changePasswordData.email
         data.token = changePasswordData.token
-        console.log(' saveFormData :',data)
         setIsSubmitting(true)
         await changePassword(data);
         setIsSubmitting(false)    
@@ -46,12 +51,22 @@ function ChangePassword() {
               withCredentials : true
             }
           ).then(function (response) {
-            console.log(' response :',response)
+            if(response.data.success === true){
+              reset({
+                "password":"",
+                "repeatPassword":""
+              });
+              setLoginSuccess(response.data.message)
+            }else{
+              if (typeof response.data.message === "object") {
+                setError('password', { message: response.data.message?.password })
+                setError('repeatPassword', { message: response.data.message?.repeatPassword })
+              } else {
+                setLoginError(response.data.message)
+              }
+            }            
+           
             setIsSubmitting(false)
-            setLoginError(response.message)
-            setError('email', { message: response.message?.email })
-            setError('password', { message: response.message?.password })
-            setError('repeatPassword', { message: response.message?.repeatPassword })
           }).catch(function (error) {
             setIsSubmitting(false)
           })
@@ -81,6 +96,7 @@ function ChangePassword() {
                         <div className="p-5  h-100" >
                             <h4 className="p-2">Change Password?</h4>
                             <p className="text-danger">{loginError} </p>
+                            <p className="text-success">{loginSuccess} {loginSuccess && <a href="#loginModal" data-bs-toggle="modal" className="main-color"  onClick={(e) => openLoginModal(e)}>Login</a>}</p>
                             <form onSubmit={handleSubmit(data => {saveFormData(data)})}>
                                 <div className="p-2 form-group ">
                                     <label htmlFor="password" className="mb-2" style={{color:"#666666"}}> PASSWORD (*)</label>
