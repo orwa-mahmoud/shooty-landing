@@ -2759,3 +2759,6 @@ input::placeholder {
 .have-accoiunt-color {
   color:#A3A3A3
 }
+.hero-img {
+  position: relative;
+}

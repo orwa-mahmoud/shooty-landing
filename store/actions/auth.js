@@ -21,10 +21,19 @@ export const restPasswordEmail = (data) => {
     }
 }
 
+
+export const setChangePasswordData = (data) => {
+    return {
+        type: actionTypes.CHANGE_PASSWORD_DATA,
+        payload: data
+    }
+}
+
 const authActions = {
     register,
     login,
     restPasswordEmail,
+    setChangePasswordData,
 }
 
 

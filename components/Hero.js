@@ -60,6 +60,7 @@ function Hero() {
                                 src={heroSectionContent.hero_img}
                                 alt="" 
                                 fill 
+                                sizes="(max-width: 600px) 100vw, 50vw"
                                 className="img-fluid custom-img"
                                 priority={true}
                             />

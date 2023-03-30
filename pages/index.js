@@ -15,10 +15,28 @@ import Modals from '@/components/modals/Modals'
 const inter = Inter({ subsets: ['latin'] })
 import axios from "axios";
 import Head from 'next/head'
+import { useRouter } from 'next/router';
+import { useSelector,useDispatch } from 'react-redux';
+import allActions from '../store/actions';
 
 axios.defaults.withCredentials = true
 
 export default function Home() {
+
+
+  const changePasswordData = useSelector((state) => state.auth.changePasswordData)
+  const dispatch =useDispatch()
+
+  if(changePasswordData?.email)
+  {
+    console.log('changePasswordData inside: ',changePasswordData)
+    dispatch(allActions.showHideModalActions.showChangePasswordModal())
+  }
+
+  // useEffect(() => {
+
+  // }, [changePasswordData])
+
 
   useEffect(() => {
     AOS.init({

@@ -4,7 +4,8 @@ import * as actionTypes from '../actions/actionsTypes';
 const initialState = {
     user: [],
     token: '',
-    resetPasswordEmail: ''
+    resetPasswordEmail: '',
+    changePasswordData:[]
 }
 
 const auth = (state = initialState, action) => {
@@ -26,6 +27,11 @@ const auth = (state = initialState, action) => {
             return {
                 ... state,
                 resetPasswordEmail: action.payload,
+            } 
+        case actionTypes.CHANGE_PASSWORD_DATA:
+            return {
+                ... state,
+                changePasswordData: action.payload,
             } 
             
         default: 

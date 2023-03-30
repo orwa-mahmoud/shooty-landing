@@ -77,7 +77,7 @@ function Features() {
                                                 </div>
                                                 <div className="col-lg-6">
                                                 {item.image && (
-                                                    <Image src={item.image} fill className="img-fluid custom-img" alt="Slider"
+                                                    <Image src={item.image} fill className="img-fluid custom-img" alt="Slider"  sizes="(max-width: 600px) 100vw, 50vw"
                                                     data-aos="zoom-out" data-aos-delay="200"/>
                                                 )}
                                                 </div>
