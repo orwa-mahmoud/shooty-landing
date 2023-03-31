@@ -36,7 +36,7 @@ function ResetPasswordLink() {
                             </a>
                         <h4 className="p-2">Reset Password Link Email</h4>
                         <p style={{color:"#666666"}}>We have sent an email to <span className="text-dark fw-bold">{restPasswordEmail}</span> </p>
-                        <p style={{color:"#666666"}}> You need to verify your email to continue. If you have not received the reset link email, please check your &quot;spam&quot; or &quot;Bulk Email&quot; folder.</p>
+                        <p style={{color:"#666666"}}> Thank you! We've just sent you an email with instructions on how to reset your password. Please check your inbox and follow the link provided to complete the process. If you don't receive the email within a few minutes, please check your spam folder or contact our support team for further assistance.</p>
 
                     </div>  
                 </div>

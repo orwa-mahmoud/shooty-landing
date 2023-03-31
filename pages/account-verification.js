@@ -49,6 +49,8 @@ function AccountVerification() {
        }
        if(res.success){
         window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL+'?emailVerified=true';
+       }else{
+        window.location.href = '/'
        }
 
    }).catch(function (error) {

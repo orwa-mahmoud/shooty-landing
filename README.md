@@ -3,10 +3,10 @@
 First, create an environment file.
 
 ```bash
-touch .env
+touch .env.local
 ```
 
-Copy and paste below environment variables in newly created .env file.
+Copy and paste below environment variables in newly created .env.local file or copy and pas .env.local.example file and rename it.
 
 ```bash
 NEXT_PUBLIC_API_URL = BACKEND_API_URL
