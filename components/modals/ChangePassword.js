@@ -97,7 +97,9 @@ function ChangePassword() {
                             <h4 className="p-2">Change Password?</h4>
                             <p className="text-danger">{loginError} </p>
                             <p className="text-success">{loginSuccess} {loginSuccess && <a href="#loginModal" data-bs-toggle="modal" className="main-color"  onClick={(e) => openLoginModal(e)}>Login</a>}</p>
-                            <form onSubmit={handleSubmit(data => {saveFormData(data)})}>
+                            {
+                              !loginSuccess && 
+                              <form onSubmit={handleSubmit(data => {saveFormData(data)})}>
                                 <div className="p-2 form-group ">
                                     <label htmlFor="password" className="mb-2" style={{color:"#666666"}}> PASSWORD (*)</label>
                                     <input type="password" className="form-control input-background"  name="password" id="password" placeholder="Password" {...register("password", {required: 'Password is required',minLength: { value: 8, message: 'Length must be 8 or more', },maxLength: { value: 20, message: 'Length must be 20 or less', }})}/>
@@ -128,6 +130,7 @@ function ChangePassword() {
                                         </button>
                                 </div>
                             </form>
+                            }
                         </div>
                         
                     </div>
