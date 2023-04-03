@@ -4,7 +4,6 @@ axios.defaults.withCredentials = true;
 const login = async (req, res) => {
 
     const dataBody = req.body
-    console.log('res.data : ', dataBody);
     if (req.method === 'POST') {
 
         await axios.post(process.env.NEXT_PUBLIC_API_URL + '/auth/login',

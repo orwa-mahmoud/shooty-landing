@@ -29,7 +29,6 @@ function AccountVerification() {
 
      console.log(response.data);
        const res = response.data;
-       console.log('data ; ',res.authCookie);
        const setCookieArray = res.authCookie;
        if (setCookieArray && setCookieArray.length > 0) {
            const cookieParts = setCookieArray[0].split(";").map((part) => part.trim());
