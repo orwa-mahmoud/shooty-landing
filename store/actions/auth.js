@@ -29,11 +29,19 @@ export const setChangePasswordData = (data) => {
     }
 }
 
+export const setAcceptInvitationData = (data) => {
+    return {
+        type: actionTypes.ACCEPT_INVITATION_DATA,
+        payload: data
+    }
+}
+
 const authActions = {
     register,
     login,
     restPasswordEmail,
     setChangePasswordData,
+    setAcceptInvitationData
 }
 
 

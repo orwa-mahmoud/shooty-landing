@@ -24,7 +24,8 @@ axios.defaults.withCredentials = true
 export default function Home() {
 
 
-  const changePasswordData = useSelector((state) => state.auth.changePasswordData)
+  const changePasswordData   = useSelector((state) => state.auth.changePasswordData)
+  const acceptInvitationData = useSelector((state) => state.auth.acceptInvitationData)
   const dispatch =useDispatch()
 
   if(changePasswordData?.email)
@@ -32,10 +33,46 @@ export default function Home() {
     console.log('changePasswordData inside: ',changePasswordData)
     dispatch(allActions.showHideModalActions.showChangePasswordModal())
   }
+  console.log('acceptInvitationData inside: ',acceptInvitationData)
+  if(acceptInvitationData?.user.registred)
+  {
+    console.log('acceptInvitationData inside: ',acceptInvitationData)
+    dispatch(allActions.showHideModalActions.showLoginModal)
+  }
 
-  // useEffect(() => {
 
-  // }, [changePasswordData])
+    const profile  = async () => {
+      let condition = false;
+      // Make an API call to fetch the user profile    
+      await axios.get(process.env.NEXT_PUBLIC_API_URL + '/auth/profile',
+        {
+          headers: {'Content-Type': 'application/json'},
+          withCredentials: true
+        }
+        ).then(response => {
+          console.log('response :',response.data)
+            if(response.data.user){
+              condition = true;
+            }else{
+              condition = false
+            }
+        }).catch(error => {
+          console.log('error :',error)
+            condition = false
+        });
+      if (condition === true) {
+        if (typeof window !== 'undefined') {
+          window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL;
+        } else {
+          ctx.res.writeHead(302, { Location: process.env.NEXT_PUBLIC_SAAS_APP_URL });
+          ctx.res.end();
+        }
+      }
+    }
+
+  useEffect(() => {
+    profile()
+  }, [])
 
 
   useEffect(() => {
