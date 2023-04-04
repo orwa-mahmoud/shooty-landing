@@ -213,7 +213,7 @@ function Signup() {
                                     <div className="col">
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="readCondition" checked={readConditionChekced} onChange={handleChange}/>
-                                        <label className="form-check-label" htmlFor="readCondition"> By clicking continue above, you acknowledge that you have read, understood and agree to our Terms & Conditions , Privacy Policy and Legal Notice!e </label>
+                                        <label className="form-check-label" htmlFor="readCondition"> By clicking continue above, you acknowledge that you have read, understood and agree to our Terms & Conditions , Privacy Policy and Legal Notice!</label>
                                     </div>
                                     </div>
                                 </div>
