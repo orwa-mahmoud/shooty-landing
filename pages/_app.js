@@ -12,7 +12,7 @@ class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const  req  = ctx.req;
     const cookies = req.headers.cookie;
-    let condition = false;
+    let redirectToSaas = false;
     // Make an API call to fetch the user profile    
      await axios.get(process.env.NEXT_PUBLIC_API_URL + '/auth/profile',
        {
@@ -20,16 +20,16 @@ class MyApp extends App {
         withCredentials: true
        }
        ).then(response => {
-          if(response.data.user){
-            condition = true;
+          if(response.data.user && response.data.user.is_verified){
+            redirectToSaas = true;
           }else{
-            condition = false
+            redirectToSaas = false
           }
        }).catch(error => {
         console.log('error :',error)
-          condition = false
+        redirectToSaas = false
        });
-    if (condition === true) {
+    if (redirectToSaas === true) {
       if (typeof window !== 'undefined') {
         window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL;
       } else {
