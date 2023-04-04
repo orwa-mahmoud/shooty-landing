@@ -28,18 +28,6 @@ export default function Home() {
   const acceptInvitationData = useSelector((state) => state.auth.acceptInvitationData)
   const dispatch =useDispatch()
 
-  if(changePasswordData?.email)
-  {
-    console.log('changePasswordData inside: ',changePasswordData)
-    dispatch(allActions.showHideModalActions.showChangePasswordModal())
-  }
-  console.log('acceptInvitationData inside: ',acceptInvitationData)
-  if(acceptInvitationData?.user.registred)
-  {
-    console.log('acceptInvitationData inside: ',acceptInvitationData)
-    dispatch(allActions.showHideModalActions.showLoginModal)
-  }
-
 
     const profile  = async () => {
       let condition = false;
@@ -60,12 +48,21 @@ export default function Home() {
           console.log('error :',error)
             condition = false
         });
-      if (condition === true) {
-        if (typeof window !== 'undefined') {
-          window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL;
-        } else {
-          ctx.res.writeHead(302, { Location: process.env.NEXT_PUBLIC_SAAS_APP_URL });
-          ctx.res.end();
+      if (condition === true && (acceptInvitationData.user.lenght === 0 || acceptInvitationData?.user.registered ||  acceptInvitationData?.user.registered )) {
+        window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL + (acceptInvitationData?.user.registered ? '?workspace='+acceptInvitationData?.workspace + '&token='+acceptInvitationData?.token : '');
+      }else{
+        if(changePasswordData?.email)
+        {
+          console.log('changePasswordData inside: ',changePasswordData)
+          dispatch(allActions.showHideModalActions.showChangePasswordModal())
+        }
+        console.log('acceptInvitationData inside: ',acceptInvitationData)
+        if(acceptInvitationData?.user.registered === true)
+        {
+          console.log('acceptInvitationData inside: ',acceptInvitationData)
+          dispatch(allActions.showHideModalActions.showLoginModal())
+        }else if(acceptInvitationData?.user.registered === false){
+          dispatch(allActions.showHideModalActions.showSignupModal())
         }
       }
     }

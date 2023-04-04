@@ -16,7 +16,7 @@ function AcceptInvitation() {
   // const workspace = 2
   // const token =  "$2b$10$JNUlQHq5XMn7VugA/CE0hOELYBDh3HB.ArJjnXKGJIWyhmRibQ/HG"
 
-  const accountVerification = async () => {
+  const getInvitationDetails = async () => {
       await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/get-invitation-details/${workspace}/${token}`, 
        {
            headers: {'Content-Type': 'application/json'},
@@ -27,7 +27,7 @@ function AcceptInvitation() {
           console.log('response.data :',response.data);
           const acceptInvitationData = {
             user:response.data,
-            workspace:workspace,
+            workspace:parseInt(workspace),
             token:token
           }
           // console.log('acceptInvitationData :',acceptInvitationData.user.registered
@@ -50,12 +50,15 @@ function AcceptInvitation() {
 
     }
 
-  if(token && workspace){
-    console.log('workspace :',workspace)
-    accountVerification()
-    //window.location.href = '/'
-    router.push('/');
-  }
+  useEffect(() => {
+    if(token && workspace){
+      console.log('workspace :',workspace)
+      getInvitationDetails()
+      router.push('/');
+    }else{
+      router.push('/');
+    }
+  },[token,workspace]);
 
   return (
     null

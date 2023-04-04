@@ -18,6 +18,7 @@ function Login() {
 
 
     const showLoginModal = useSelector((state) => state.showHideModal.showLoginModal)
+    const acceptInvitationData = useSelector((state) => state.auth.acceptInvitationData)
     const dispatch = useDispatch()
 
     const closeModal = (e) => {
@@ -80,7 +81,7 @@ function Login() {
                 });
             }
             if(res.user){
-              window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL;
+              window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL+ (acceptInvitationData?.user ? '?workspace='+acceptInvitationData?.workspace + '&token='+acceptInvitationData?.token : '');
                 reset({
                     "email":"",
                     "password":"",

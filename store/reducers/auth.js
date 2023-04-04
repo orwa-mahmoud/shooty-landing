@@ -6,7 +6,7 @@ const initialState = {
     token: '',
     resetPasswordEmail: '',
     changePasswordData:[],
-    acceptInvitation:{
+    acceptInvitationData:{
         user:[],
         workspace:null,
         token:'',
@@ -41,7 +41,7 @@ const auth = (state = initialState, action) => {
         case actionTypes.ACCEPT_INVITATION_DATA:
             return {
                 ... state,
-                acceptInvitation: action.payload,
+                acceptInvitationData: action.payload,
             } 
             
         default: 

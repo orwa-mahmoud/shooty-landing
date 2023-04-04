@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Image from 'next/image'
 import Modal from 'react-bootstrap/Modal';
 import { useSelector,useDispatch } from 'react-redux';
@@ -10,16 +10,23 @@ axios.defaults.withCredentials = true;
 
 function Signup() {
 
-  const {register, formState: { errors },setError,reset,getValues, handleSubmit} = useForm();
+  const {register, formState: { errors },setError,reset,getValues,setValue, handleSubmit} = useForm();
   const [readConditionChekced,setReadConditionChekced] = useState(true)
   const [ isSubmitting,setIsSubmitting ] = useState(false)
 
+  const  handleSetAcceptInvitationData = (data) => {
+    console.log('data',data)
+    setValue('first_name',data.user.first_name);
+    setValue('last_name', data.user.last_name);
+    setValue('email', data.user.email);
+  }
   const handleChange = () => { 
     setReadConditionChekced(!readConditionChekced)
   };
   
 
   const showSignupModal = useSelector((state) => state.showHideModal.showSignupModal)
+  const acceptInvitationData = useSelector((state) => state.auth.acceptInvitationData)
   const dispatch =useDispatch()
 
 
@@ -50,7 +57,16 @@ function Signup() {
 
   const saveFormData = async (data) => {
     setIsSubmitting(true)
-    signup(data);
+    if(acceptInvitationData.user && acceptInvitationData.workspase && acceptInvitationData.token){
+        const formData = {
+            data: data,
+            workspase:acceptInvitationData.workspase,
+            token:acceptInvitationData.token
+        }
+        signupAndAcceptInvitation(formData)
+    }else{
+        signup(data);
+    }
     setIsSubmitting(false)
   }
   const signup = async (data) => {
@@ -85,25 +101,54 @@ function Signup() {
         setError('email', { message: error.response.data.errorMessage?.email })
         setError('password', { message: error.response.data.errorMessage?.password })
         setError('repeatPassword', { message: error.response.data.errorMessage?.repeatPassword })
-        // if (error.response) {
-        //   console.log('error',error);
-        //   // The request was made and the server responded with a status code
-        //   // that falls out of the range of 2xx
-        //   console.log(error.response.data);
-        //   console.log(error.response.status);
-        //   console.log(error.response.headers);
-        // } else if (error.request) {
-        //   console.log(error.request);
-        // } else {
-        //   // Something happened in setting up the request that triggered an Error
-        //   console.log('Error', error.message);
-        // }
         // console.log(error.config);
      
     })
  
    }
 
+
+   const signupAndAcceptInvitation = async (data) => {
+
+
+    await axios.post("/api/auth/acceptInvitationWithSignup", data,
+        {
+        headers: {'Content-Type': 'application/json'}, 
+        withCredentials : true
+        }
+    ).then(function (response) {
+        const res = response.data;
+        if(res.user){
+            reset({
+                "first_name":"",
+                "last_name":"",
+                "type":"",
+                "email":"",
+                "password":"",
+                "repeatPassword":""
+            });
+            dispatch(allActions.authActions.register(res))
+            dispatch(allActions.showHideModalActions.hideSignupModal())
+            dispatch(allActions.showHideModalActions.showVirifyEmailModal())  
+        } 
+        
+    }).catch(function (error) {
+        console.log( 'errorn : ',error.response.data.errorMessage)
+        setError('first_name', { message: error.response.data.errorMessage?.first_name })
+        setError('last_name', { message: error.response.data.errorMessage?.last_name })
+        setError('type', { message: error.response.data.errorMessage?.type })
+        setError('email', { message: error.response.data.errorMessage?.email })
+        setError('password', { message: error.response.data.errorMessage?.password })
+        setError('repeatPassword', { message: error.response.data.errorMessage?.repeatPassword })
+        // console.log(error.config);
+     
+    })
+ 
+   }
+
+   useEffect(() => {
+    handleSetAcceptInvitationData(acceptInvitationData)
+  }, [])
   return (
     <>
 
@@ -127,7 +172,10 @@ function Signup() {
                         <div className="p-5 pt-1 pb-2">
                             <form onSubmit={handleSubmit(data => {saveFormData(data)})}>
                                 <h4>Create New Account</h4>
-                                <p style={{color:"#A3A3A3"}}>Already have an account? <a href="#loginModal" data-bs-toggle="modal" className="main-color"  onClick={(e) => openLoginModal(e)}>Login</a> </p>
+                                {acceptInvitationData.user 
+                                ?  <p style={{color:"#A3A3A3"}}>Sign up to accept the invitation</p>
+                                : <p style={{color:"#A3A3A3"}}>Already have an account? <a href="#loginModal" data-bs-toggle="modal" className="main-color"  onClick={(e) => openLoginModal(e)}>Login</a> </p>
+                                }
 
                                 <div className="form-group mb-4">
                                     <label htmlFor="name" className="mb-2"> ARE YOU A (*)</label>
