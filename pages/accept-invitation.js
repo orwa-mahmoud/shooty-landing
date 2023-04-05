@@ -24,7 +24,6 @@ function AcceptInvitation() {
        }
       ).then(async function (response) {
 
-          console.log('response.data :',response.data);
           const acceptInvitationData = {
             user:response.data,
             workspace:parseInt(workspace),
@@ -35,14 +34,6 @@ function AcceptInvitation() {
 
           const res = response.data;
           dispatch(allActions.authActions.setAcceptInvitationData(acceptInvitationData))
-          if(!response.data.registered){
-            //dispatch(allActions.authActions.setAcceptInvitationData(response.data))
-          }
-          if(res.success){
-            //window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL+'?emailVerified=true';
-          }else{
-            //window.location.href = '/'
-          }
 
       }).catch(function (error) {
         console.log('error : ',error)
@@ -52,12 +43,9 @@ function AcceptInvitation() {
 
   useEffect(() => {
     if(token && workspace){
-      console.log('workspace :',workspace)
       getInvitationDetails()
-      router.push('/');
-    }else{
-      router.push('/');
     }
+    router.push('/');
   },[token,workspace]);
 
   return (

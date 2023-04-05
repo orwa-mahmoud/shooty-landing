@@ -6,6 +6,8 @@ import allActions from '../../store/actions';
 import {useForm} from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import axios from "axios";
+import Cookies from "js-cookie";
+
 axios.defaults.withCredentials = true;
 
 function Signup() {
@@ -57,10 +59,10 @@ function Signup() {
 
   const saveFormData = async (data) => {
     setIsSubmitting(true)
-    if(acceptInvitationData.user && acceptInvitationData.workspase && acceptInvitationData.token){
+    if(acceptInvitationData.user && acceptInvitationData.workspace && acceptInvitationData.token){
         const formData = {
             data: data,
-            workspase:acceptInvitationData.workspase,
+            workspace:acceptInvitationData.workspace,
             token:acceptInvitationData.token
         }
         signupAndAcceptInvitation(formData)
@@ -110,7 +112,8 @@ function Signup() {
 
    const signupAndAcceptInvitation = async (data) => {
 
-
+    let rememberMe =  data.rememberMe;
+    delete data['rememberMe'];
     await axios.post("/api/auth/acceptInvitationWithSignup", data,
         {
         headers: {'Content-Type': 'application/json'}, 
@@ -118,29 +121,37 @@ function Signup() {
         }
     ).then(function (response) {
         const res = response.data;
-        if(res.user){
-            reset({
-                "first_name":"",
-                "last_name":"",
-                "type":"",
-                "email":"",
-                "password":"",
-                "repeatPassword":""
-            });
-            dispatch(allActions.authActions.register(res))
-            dispatch(allActions.showHideModalActions.hideSignupModal())
-            dispatch(allActions.showHideModalActions.showVirifyEmailModal())  
+        if(res.user){          
+            const setCookieArray = res.authCookie;
+            if (setCookieArray && setCookieArray.length > 0) {
+                const cookieParts = setCookieArray[0].split(";").map((part) => part.trim());
+                const cookieKeyValue = cookieParts[0].split("=");
+                const cookieKey = cookieKeyValue[0];
+                const cookieValue = cookieKeyValue[1];
+                const domain = cookieParts.find((part) => part.startsWith("Domain=")).split("=")[1];
+                const path = cookieParts.find((part) => part.startsWith("Path=")).split("=")[1];
+                const sameSite = cookieParts.find((part) => part.startsWith("SameSite=")).split("=")[1];
+                const expirationDateValue = cookieParts.find((part) => part.startsWith("Expires=")).split("=")[1];
+                const expirationDate = new Date(Date.parse(expirationDateValue))
+                Cookies.set(cookieKey, cookieValue, {
+                    domain: domain,
+                    path: path,
+                    expires: rememberMe?expirationDate:undefined,
+                });
+            }
+            const params = (acceptInvitationData?.user ? '?workspace='+acceptInvitationData?.workspace + '&token='+acceptInvitationData?.token : '')
+            dispatch(allActions.authActions.setAcceptInvitationData({user:[],workspace:null,toke:''}))
+            window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL + params
         } 
         
     }).catch(function (error) {
-        console.log( 'errorn : ',error.response.data.errorMessage)
+        console.log( 'errorn : ',error)
         setError('first_name', { message: error.response.data.errorMessage?.first_name })
         setError('last_name', { message: error.response.data.errorMessage?.last_name })
         setError('type', { message: error.response.data.errorMessage?.type })
         setError('email', { message: error.response.data.errorMessage?.email })
         setError('password', { message: error.response.data.errorMessage?.password })
         setError('repeatPassword', { message: error.response.data.errorMessage?.repeatPassword })
-        // console.log(error.config);
      
     })
  

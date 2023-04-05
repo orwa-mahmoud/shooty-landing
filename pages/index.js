@@ -38,7 +38,6 @@ export default function Home() {
           withCredentials: true
         }
         ).then(response => {
-          console.log('response :',response.data)
             if(response.data.user){
               condition = true;
             }else{
@@ -48,7 +47,7 @@ export default function Home() {
           console.log('error :',error)
             condition = false
         });
-      if (condition === true && (acceptInvitationData.user.lenght === 0 || acceptInvitationData?.user.registered ||  acceptInvitationData?.user.registered )) {
+      if (condition === true && (acceptInvitationData.user.length === 0 || acceptInvitationData?.user.registered ||  acceptInvitationData?.user.registered )) {
         window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL + (acceptInvitationData?.user.registered ? '?workspace='+acceptInvitationData?.workspace + '&token='+acceptInvitationData?.token : '');
       }else{
         if(changePasswordData?.email)

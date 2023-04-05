@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import Image from 'next/image'
 import Modal from 'react-bootstrap/Modal';
 import {useSelector, useDispatch} from 'react-redux';
@@ -12,7 +12,7 @@ axios.defaults.withCredentials = true;
 
 function Login() {
 
-    const {register, formState: {errors}, reset, getValues, handleSubmit} = useForm();
+    const {register, formState: {errors}, reset, getValues,setValue, handleSubmit} = useForm();
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [loginError, setLoginError] = useState('')
 
@@ -43,6 +43,10 @@ function Login() {
         dispatch(allActions.showHideModalActions.showForgotEmailModal())
     }
 
+    const  handleSetAcceptInvitationData = (data) => {
+        setValue('email', data.user.email);
+      }
+
     const saveFormData = async (data) => {
         setIsSubmitting(true)
         login(data);
@@ -60,7 +64,6 @@ function Login() {
             }
         ).then(async function (response) {
 
-          console.log(response.data);
             const res = response.data;
 
             const setCookieArray = res.authCookie;
@@ -97,6 +100,10 @@ function Login() {
 
     }
 
+
+    useEffect(() => {
+        handleSetAcceptInvitationData(acceptInvitationData)
+      }, [])
 
     return (
         <>

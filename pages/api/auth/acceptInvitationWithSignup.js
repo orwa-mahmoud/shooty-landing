@@ -26,7 +26,8 @@ const acceptInvitationWithSignup  = async (req, res)  => {
                     message: 'Logged in',
                     user: response.data.user,
                     token: response.data.token,
-                    errorMessage:''
+                    errorMessage:'',
+                    authCookie:response.headers["set-cookie"]
                  })
             }
             ).catch(function (error) {
@@ -35,7 +36,7 @@ const acceptInvitationWithSignup  = async (req, res)  => {
                     message: error.message,
                     user:null,
                     token: null,
-                    errorMessage: error.response.data.message,
+                    errorMessage: error.response?.data?.message,
                  })
               });
     }        
