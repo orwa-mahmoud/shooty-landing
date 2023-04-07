@@ -84,7 +84,12 @@ function Login() {
                 });
             }
             if(res.user){
-              window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL+ (acceptInvitationData?.user ? '?workspace='+acceptInvitationData?.workspace + '&token='+acceptInvitationData?.token : '');
+                if(acceptInvitationData?.workspace && acceptInvitationData?.token){
+                    window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL+ (acceptInvitationData?.user ? '?workspace='+acceptInvitationData?.workspace + '&token='+acceptInvitationData?.token : '');
+                }else{
+                    window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL;
+                }
+             
                 reset({
                     "email":"",
                     "password":"",
