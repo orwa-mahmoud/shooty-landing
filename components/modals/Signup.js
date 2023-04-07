@@ -141,7 +141,7 @@ function Signup() {
             }
             const params = (acceptInvitationData?.user ? '?workspace='+acceptInvitationData?.workspace + '&token='+acceptInvitationData?.token : '')
             dispatch(allActions.authActions.setAcceptInvitationData({user:[],workspace:null,toke:''}))
-            window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL + params
+            window.location.href = process.env.NEXT_PUBLIC_SAAS_APP_URL
         } 
         
     }).catch(function (error) {
