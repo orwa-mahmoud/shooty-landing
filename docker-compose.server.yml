@@ -1,3 +1,6 @@
 services:
   web:
+    build:
+      context: .
+      target: production
     command: ./node_modules/.bin/next start
