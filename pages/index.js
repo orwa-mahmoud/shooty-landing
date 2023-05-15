@@ -9,7 +9,7 @@ import Features from '../components/Features'
 import Cto from '../components/Cto'
 import Footer from '../components/Footer'
 import Clients from '../components/Clients'
-import React,{useEffect} from 'react'
+import React,{useEffect,useCallback} from 'react'
 import AOS from 'aos';
 import Modals from '@/components/modals/Modals'
 const inter = Inter({ subsets: ['latin'] })
@@ -29,7 +29,7 @@ export default function Home() {
   const dispatch =useDispatch()
 
 
-    const profile  = async () => {
+    const profile = useCallback(async () => {
       let condition = false;
       // Make an API call to fetch the user profile    
       await axios.get(process.env.NEXT_PUBLIC_API_URL + '/auth/profile',
@@ -64,11 +64,11 @@ export default function Home() {
           dispatch(allActions.showHideModalActions.showSignupModal())
         }
       }
-    }
+    }, [acceptInvitationData,changePasswordData,dispatch]);
 
   useEffect(() => {
     profile()
-  }, [])
+  }, [profile])
 
 
   useEffect(() => {

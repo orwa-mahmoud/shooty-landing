@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useCallback} from 'react'
 import Image from 'next/image'
 import Modal from 'react-bootstrap/Modal';
 import { useSelector,useDispatch } from 'react-redux';
@@ -16,12 +16,13 @@ function Signup() {
   const [readConditionChekced,setReadConditionChekced] = useState(true)
   const [ isSubmitting,setIsSubmitting ] = useState(false)
 
-  const  handleSetAcceptInvitationData = (data) => {
+  const handleSetAcceptInvitationData = useCallback((data) => {
     console.log('data',data)
     setValue('first_name',data.user.first_name);
     setValue('last_name', data.user.last_name);
     setValue('email', data.user.email);
-  }
+  }, [setValue]);
+
   const handleChange = () => { 
     setReadConditionChekced(!readConditionChekced)
   };
@@ -159,7 +160,7 @@ function Signup() {
 
    useEffect(() => {
     handleSetAcceptInvitationData(acceptInvitationData)
-  }, [])
+  }, [handleSetAcceptInvitationData,acceptInvitationData])
   return (
     <>
 

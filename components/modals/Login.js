@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useCallback} from 'react'
 import Image from 'next/image'
 import Modal from 'react-bootstrap/Modal';
 import {useSelector, useDispatch} from 'react-redux';
@@ -43,9 +43,10 @@ function Login() {
         dispatch(allActions.showHideModalActions.showForgotEmailModal())
     }
 
-    const  handleSetAcceptInvitationData = (data) => {
+
+      const handleSetAcceptInvitationData = useCallback(async (data) => {
         setValue('email', data.user.email);
-      }
+      }, [setValue]);
 
     const saveFormData = async (data) => {
         setIsSubmitting(true)
@@ -108,7 +109,7 @@ function Login() {
 
     useEffect(() => {
         handleSetAcceptInvitationData(acceptInvitationData)
-      }, [])
+      }, [handleSetAcceptInvitationData,acceptInvitationData])
 
     return (
         <>
