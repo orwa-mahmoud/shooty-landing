@@ -15,6 +15,7 @@ export const store = configureStore({
   })
 
 // // creating store
+//
 // export const store = createStore(
 //   rootReducer,
 //   composeWithDevTools(applyMiddleware(...middleware))
